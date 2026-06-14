@@ -70,16 +70,16 @@ client.on('interactionCreate', async (interaction) => {
 
     const ap1Input = new TextInputBuilder()
       .setCustomId('ap1')
-      .setLabel('Nota da AP1 (0-10) — branco se não fez')
+      .setLabel('AP1 (0-10) | DEIXE VAZIO SE NÃO FEZ')
       .setStyle(TextInputStyle.Short)
-      .setPlaceholder('Ex: 7.5 — deixe vazio se ainda não fez a AP1')
+      .setPlaceholder('Não fez a AP1 ainda? Deixa em branco')
       .setRequired(false);
 
     const ap2Input = new TextInputBuilder()
       .setCustomId('ap2')
-      .setLabel('Nota da AP2 (0-10) — branco se não fez')
+      .setLabel('AP2 (0-10) | DEIXE VAZIO SE NÃO FEZ')
       .setStyle(TextInputStyle.Short)
-      .setPlaceholder('Ex: 8.0 — deixe vazio se ainda não fez a AP2')
+      .setPlaceholder('Não fez a AP2 ainda? Deixa em branco')
       .setRequired(false);
 
     const acInput = new TextInputBuilder()
