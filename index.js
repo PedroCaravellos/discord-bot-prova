@@ -98,11 +98,18 @@ client.on('interactionCreate', async (interaction) => {
       { name: '📊 Média Final', value: `**${media.toFixed(2)}**`, inline: true },
     );
 
+    const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
     if (media >= 7) {
+      const frase = pick([
+        `Que merda, o filha da puta passou... Tua média ficou: **${media.toFixed(2)}**`,
+        `Ah não mano, a mãe gostosa está aprovada com **${media.toFixed(2)}** infelizmente`,
+        `Pior notícia da minha vida é que esse otário ficou com **${media.toFixed(2)}** e foi aprovado, vai tomar no seu cu`,
+      ]);
       embed
         .setColor(0x57f287)
-        .setTitle('✅ Aprovado!')
-        .setDescription(`Sua média é **${media.toFixed(2)}**. Parabéns, você passou! 🎉`);
+        .setTitle('✅ Aprovado (infelizmente)')
+        .setDescription(frase);
     } else {
       // AS substitui a menor nota entre AP1 e AP2
       const lowerAP  = Math.min(ap1, ap2);
@@ -112,27 +119,28 @@ client.on('interactionCreate', async (interaction) => {
       // higherAP*0.4 + AS*0.4 + ac*0.2 + tp >= 7
       const requiredAS = (7 - higherAP * 0.4 - ac * 0.2 - tp) / 0.4;
 
-      embed
-        .setColor(0xed4245)
-        .setTitle('⚠️ Em Recuperação')
-        .setDescription(`Sua média é **${media.toFixed(2)}**. Você precisa fazer a **AS**.`);
-
       if (requiredAS > 10) {
         const maxMedia = higherAP * 0.4 + 10 * 0.4 + ac * 0.2 + tp;
-        embed.addFields({
-          name: '😔 Situação crítica',
-          value:
-            `Mesmo tirando **10** na AS (substituindo ${whichAP}), a maior média possível seria **${maxMedia.toFixed(2)}**.\n` +
-            `Infelizmente não é possível atingir 7 nessa situação.`,
-        });
+        const frase = pick([
+          `VAMOOOS NÃO PASSOU SEU OTÁRIO, e olha que ainda assim nem com 10 na AS tu passa. Máximo que tu chega é **${maxMedia.toFixed(2)}** 💀`,
+          `Chupa seu merda, fica de recuperação aí. E o pior: mesmo tirando 10 na AS tu não passa. Máximo: **${maxMedia.toFixed(2)}**. Fudeu.`,
+          `YEAHHHH, tá de recuperação otário, e ainda por cima nem tem como passar na AS. Máximo possível: **${maxMedia.toFixed(2)}**. Tchau 👋`,
+        ]);
+        embed
+          .setColor(0xed4245)
+          .setTitle('💀 Reprovado e sem saída')
+          .setDescription(frase);
       } else {
         const minAS = Math.max(0, requiredAS);
-        embed.addFields({
-          name: `🎯 Nota mínima na AS`,
-          value:
-            `Você precisa de pelo menos **${minAS.toFixed(2)}** na AS.\n` +
-            `A AS vai substituir sua ${whichAP} (nota atual: **${lowerAP.toFixed(1)}**).`,
-        });
+        const frase = pick([
+          `VAMOOOS NÃO PASSOU SEU OTÁRIO, ainda vai ter que tirar **${minAS.toFixed(2)}** na AS (vai substituir ${whichAP})`,
+          `Chupa seu merda, fica de recuperação aí. Ainda tem que tirar **${minAS.toFixed(2)}** na AS pra passar (substitui ${whichAP}).`,
+          `YEAHHHH, tá de recuperação otário, tem que tirar **${minAS.toFixed(2)}** na AS pra passar (substitui ${whichAP}) 😂`,
+        ]);
+        embed
+          .setColor(0xed4245)
+          .setTitle('⚠️ Recuperação, seu otário')
+          .setDescription(frase);
       }
     }
 
